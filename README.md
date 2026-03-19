@@ -203,4 +203,72 @@ MobSF effectue automatiquement des tests de sécurité sur les connexions résea
 
 ---
 
+### 6.4 — Logcat Stream en temps réel
+
+<p align="center"> <img src="images/a4.png" width="800"> </p>
+
+En ciblant le flux Logcat pour le package `jakhar.aseem.diva`, les événements système liés à l'application s'affichent en temps réel (ex: évènements `PACKAGE_ADDED` ou vérifications `MediaProvider`).
+
+**Utilité :** Ce flux en live est indispensable pour repérer d'éventuelles fuites d'informations et valider le Challenge #1 (Insecure Logging). Des mots de passe ou tokens peuvent y être repérés si les développeurs ont omis de filtrer leurs journaux en production.
+
+
+
+
+
+### 6.6 — Exploration des Challenges DIVA avec le Dynamic Analyzer
+
+*    — Access Control Issues (Tveeter API Credentials) :** 
+    <p align="center"> <img src="images/21.png" width="800"> </p>
+    Le Challenge "Tveeter API Credentials" est lancé. Sur l'émulateur, DIVA requiert un PIN Tweeter virtuel. Sur le back-office, MobSF démontre sans effort le manque de sécurisation des accès vers cette activité exportée. Les analyses *Activity tester* et *Exported Activity tester* complètent cette démarche structurelle.
+
+*    — Input Validation Issues Part 3 :**
+    <p align="center"> <img src="images/20.png" width="800"> </p>
+    Dans l'interface "Missile Launch", le but du jeu est de provoquer un crash en insérant des données non sanitaires. Cela trahit une lacune de type "memory corruption / buffer overflow" au cœur des fonctions natives (C/C++ via JNI) de l'application cible, tracée assidûment par MobSF en arrière-plan.
+
+### 6.7 — Instrumentation Frida Avancée
+
+Depuis "Available Scripts", de multiples ressources communautaires peuvent être injectées.
+
+*   **Utilisation du script `bypass-emulator-detection` :**
+   
+    Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
+  <p align="center"> <img src="images/a2.png" width="800"> </p>
+*   **Script `crypto-aes-key` — Interception de clés de chiffrement :**
+    <p align="center"> <img src="images/a1.png" width="800"> </p>
+    En choisissant `crypto-aes-key`, le script s'introduit pour lister les appels à la fonction `SecretKeySpec`. Cela permet de consigner au passage les clés hexadécimales AES. En parallèle, les options octroient un terminal administrateur de l'émulateur sous la forme `[root@android] #`.
+
+*   **Code Frida injecté — Injected Frida Script :**
+    <p align="center"> <img src="images/a5.png" width="800"> </p>
+    Une fenêtre flottante valide visuellement le code propulsé en mémoire. On peut y observer le bridge *Frida 17+* et les appels `getLoadedClasses()` / `getAllMethods` pour énumérer classes et méthodes à la volée.
+
+### 6.8 — Rapport Dynamique Final
+
+<p align="center"> <img src="images/23.png" width="800"> </p>
+<p align="center"> <img src="images/24.png" width="800"> </p>
+Via la génération finale, un rapport complet et structuré émerge avec son index de navigation latéral. On y retrouve l'Information, les vulnérabilités vérifiées (TLS/SSL Security Tester, Exported Activity Tester), ainsi que les traces techniques de l'analyse réseau (HTTP(S) Traffic) et systèmes (Logcat, Dumpsys).
+
+---
+
+## Étape 7 — Tests avancés & Exploration
+
+À l'issue de l'analyse initiale, la manipulation libre s'impose pour approfondir l'évaluation.
+
+### 7.1 — Exploration des challenges DIVA
+Pour valider l'impact réel de l'application vulnérable :
+1.  Lancez chaque activité correspondante sur le téléphone émulé.
+2.  Observez instantanément l'apparition de nouvelles lignes compromettantes dans le **Logcat Stream**.
+3.  Vérifiez la nature des requêtes dans la section **HTTP(S) Traffic**.
+4.  Examinez l'origine des traces suspectes au sein des dossiers de l'application en utilisant le **File Monitor**.
+
+### 7.2 — Injection Frida personnalisée
+L'injection personnalisée surligne l'impact d'une modification logique au runtime :
+```javascript
+Java.perform(function() {
+    var MainActivity = Java.use("jakhar.aseem.diva.MainActivity");
+    MainActivity.someMethod.implementation = function() {
+        console.log("[*] someMethod() intercepted!");
+        return this.someMethod(); // Renvoie au comportement original
+    };
+});
+```
 
