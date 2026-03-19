@@ -39,3 +39,23 @@ On Utilise le script fourni par MobSF pour démarrer l’émulateur automatiquem
 ### Vérification:
 Après le démarrage, vérifier que l’émulateur est bien détecté :
 <p align="center"> <img src="images/7.png" width="800"> </p>
+
+---
+
+## Étape 4 : Installation et lancement de MobSF (Docker)
+
+### Téléchargement de l’image
+<p align="center"> <img src="images/8.png" width="800"> </p>
+```bash
+docker pull opensecurity/mobile-security-framework-mobsf:latest
+```
+### Lancement de MobSF:
+<p align="center"> <img src="images/9.png" width="800"> </p>
+
+### Accès à l’interface
+<p align="center"> <img src="images/10.png" width="800"> </p>
+Identifiants :
+ - Username : mobsf
+ - Password : mobsf
+<p align="center"> <img src="images/11.png" width="800"> </p>
+
