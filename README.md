@@ -193,16 +193,6 @@ MobSF effectue automatiquement des tests de sécurité sur les connexions résea
 ---
 
 
-#  Résumé des Tests Dynamiques
-
-| Test | Objectif | Résultat |
-|------|----------|----------|
-| Frida Injection | Surveiller stockage local | Détection de `SharedPreferences.putString()` |
-| Activity Tester | Explorer les activités | Découverte d’écrans internes |
-| TLS/SSL Tester | Vérifier la sécurité réseau | Analyse de la configuration SSL |
-
----
-
 ### 6.4 — Logcat Stream en temps réel
 
 <p align="center"> <img src="images/a4.jpeg" width="800"> </p>
@@ -211,9 +201,7 @@ En ciblant le flux Logcat pour le package `jakhar.aseem.diva`, les événements 
 
 **Utilité :** Ce flux en live est indispensable pour repérer d'éventuelles fuites d'informations et valider le Challenge #1 (Insecure Logging). Des mots de passe ou tokens peuvent y être repérés si les développeurs ont omis de filtrer leurs journaux en production.
 
-
-
-
+---
 
 ### 6.6 — Exploration des Challenges DIVA avec le Dynamic Analyzer
 
@@ -235,10 +223,10 @@ Depuis "Available Scripts", de multiples ressources communautaires peuvent être
 ## Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
     
   <p align="center"> <img src="images/a2.jpeg" width="800"> </p>
-##  **Script `crypto-aes-key` — Interception de clés de chiffrement :**
-
-    <p align="center"> <img src="images/a1.png" width="800"> </p>
-    En choisissant `crypto-aes-key`, le script s'introduit pour lister les appels à la fonction `SecretKeySpec`. Cela permet de consigner au passage les clés hexadécimales AES. En parallèle, les options octroient un terminal administrateur de l'émulateur sous la forme `[root@android] #`.
+* **Script `crypto-aes-key` — Interception de clés de chiffrement :**
+    <p align="center"> <img src="images/a1.jpeg" width="800"> </p>
+    
+   En choisissant `crypto-aes-key`, le script s'introduit pour lister les appels à la fonction `SecretKeySpec`. Cela permet de consigner au passage les clés hexadécimales AES. En parallèle, les options octroient un terminal administrateur de l'émulateur sous la forme `[root@android] #`.
 
 *   **Code Frida injecté — Injected Frida Script :**
 *   
@@ -276,3 +264,14 @@ Java.perform(function() {
 });
 ```
 
+#  Résumé des Tests Dynamiques
+
+| Test / Outil | Objectif | Résultat |
+| :--- | :--- | :--- |
+| **Logcat Stream (Challenge 1)** | Repérer les fuites d'informations | Données sensibles détectées en clair dans les logs système |
+| **TLS/SSL Security Tester** | Vérifier la sécurité réseau | Tests réussis : Configuration vérifiée et SSL Pinning bypassé |
+| **Activity Tester (Challenge 9)** | Tester le contrôle d'accès (Tveeter API) | Accès direct non autorisé à l'activité confirmé |
+| **Frida Injection (`bypass-emulator`)**| Contourner la détection d'environnement | Vérifications d'émulateur neutralisées avec succès |
+| **Frida Injection (`crypto-aes-key`)** | Récupérer les clés cryptographiques | Clés AES interceptées en clair lors de l'appel à `SecretKeySpec` |
+| **Frida Injection (`trace-shared-pref`)**| Surveiller le stockage local | Détection des écritures `SharedPreferences.putString()` |
+---
