@@ -193,7 +193,7 @@ MobSF effectue automatiquement des tests de sécurité sur les connexions résea
 ---
 
 
-# 📊 Résumé des Tests Dynamiques
+#  Résumé des Tests Dynamiques
 
 | Test | Objectif | Résultat |
 |------|----------|----------|
