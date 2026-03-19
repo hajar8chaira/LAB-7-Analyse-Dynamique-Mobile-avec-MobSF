@@ -217,7 +217,8 @@ En ciblant le flux Logcat pour le package `jakhar.aseem.diva`, les événements 
 
 ### 6.6 — Exploration des Challenges DIVA avec le Dynamic Analyzer
 
-*    — Access Control Issues (Tveeter API Credentials) :** 
+*    — Access Control Issues (Tveeter API Credentials) :**
+*    
     <p align="center"> <img src="images/21.png" width="800"> </p>
     Le Challenge "Tveeter API Credentials" est lancé. Sur l'émulateur, DIVA requiert un PIN Tweeter virtuel. Sur le back-office, MobSF démontre sans effort le manque de sécurisation des accès vers cette activité exportée. Les analyses *Activity tester* et *Exported Activity tester* complètent cette démarche structurelle.
 
@@ -231,13 +232,16 @@ Depuis "Available Scripts", de multiples ressources communautaires peuvent être
 
 *   **Utilisation du script `bypass-emulator-detection` :**
    
-    Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
+## Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
+    
   <p align="center"> <img src="images/a2.png" width="800"> </p>
-*   **Script `crypto-aes-key` — Interception de clés de chiffrement :**
+##  **Script `crypto-aes-key` — Interception de clés de chiffrement :**
+
     <p align="center"> <img src="images/a1.png" width="800"> </p>
     En choisissant `crypto-aes-key`, le script s'introduit pour lister les appels à la fonction `SecretKeySpec`. Cela permet de consigner au passage les clés hexadécimales AES. En parallèle, les options octroient un terminal administrateur de l'émulateur sous la forme `[root@android] #`.
 
 *   **Code Frida injecté — Injected Frida Script :**
+*   
     <p align="center"> <img src="images/a5.png" width="800"> </p>
     Une fenêtre flottante valide visuellement le code propulsé en mémoire. On peut y observer le bridge *Frida 17+* et les appels `getLoadedClasses()` / `getAllMethods` pour énumérer classes et méthodes à la volée.
 
