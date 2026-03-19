@@ -205,7 +205,7 @@ MobSF effectue automatiquement des tests de sécurité sur les connexions résea
 
 ### 6.4 — Logcat Stream en temps réel
 
-<p align="center"> <img src="images/a4.png" width="800"> </p>
+<p align="center"> <img src="images/a4.jpeg" width="800"> </p>
 
 En ciblant le flux Logcat pour le package `jakhar.aseem.diva`, les événements système liés à l'application s'affichent en temps réel (ex: évènements `PACKAGE_ADDED` ou vérifications `MediaProvider`).
 
@@ -234,7 +234,7 @@ Depuis "Available Scripts", de multiples ressources communautaires peuvent être
    
 ## Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
     
-  <p align="center"> <img src="images/a2.png" width="800"> </p>
+  <p align="center"> <img src="images/a2.jpeg" width="800"> </p>
 ##  **Script `crypto-aes-key` — Interception de clés de chiffrement :**
 
     <p align="center"> <img src="images/a1.png" width="800"> </p>
@@ -242,7 +242,7 @@ Depuis "Available Scripts", de multiples ressources communautaires peuvent être
 
 *   **Code Frida injecté — Injected Frida Script :**
 *   
-    <p align="center"> <img src="images/a5.png" width="800"> </p>
+    <p align="center"> <img src="images/a5.jpeg" width="800"> </p>
     Une fenêtre flottante valide visuellement le code propulsé en mémoire. On peut y observer le bridge *Frida 17+* et les appels `getLoadedClasses()` / `getAllMethods` pour énumérer classes et méthodes à la volée.
 
 ### 6.8 — Rapport Dynamique Final
