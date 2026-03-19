@@ -72,14 +72,16 @@ Analyser l’application vulnérable **DIVA** avec **MobSF** en combinant :
 
 ---
 
-## 📊 1. Analyse statique
+##  1. Analyse statique
 
 ### 🔹 Procédure
 1. Accéder à l’interface de MobSF :
 <p align="center"> <img src="images/11.png" width="800"> </p>
+
  ```
 http://127.0.0.1:8000
 ```
+
 2. Cliquer sur **Upload & Analyze**
 3. Importer le fichier `diva.apk`
 4. Attendre la fin de l’analyse
@@ -104,6 +106,7 @@ Start Dynamic Analyzer
 2. Dans l’émulateur :
 <p align="center"> <img src="images/13.png" width="800"> </p>
 <p align="center"> <img src="images/14.png" width="800"> </p>
+
 - Lancer l’application **DIVA**
 - Explorer les différents challenges :
 - Insecure Logging
@@ -220,9 +223,10 @@ Depuis "Available Scripts", de multiples ressources communautaires peuvent être
 
 *   **Utilisation du script `bypass-emulator-detection` :**
    
-## Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
+ Un script (créé par *Areizen_*) est appliqué pour esquiver la détection émulée, neutralisant `bypass_build_properties()`, `bypass_phonenumber()`, `bypass_deviceid()`, `bypass_imsi()` et `bypass_operator_name()`. Son injection se réalise grâce aux options *Spawn & Inject*, *Inject* ou *Attach*.
     
   <p align="center"> <img src="images/a2.jpeg" width="800"> </p>
+  
 * **Script `crypto-aes-key` — Interception de clés de chiffrement :**
     <p align="center"> <img src="images/a1.jpeg" width="800"> </p>
     
@@ -254,6 +258,7 @@ Pour valider l'impact réel de l'application vulnérable :
 
 ### 7.2 — Injection Frida personnalisée
 L'injection personnalisée surligne l'impact d'une modification logique au runtime :
+
 ```javascript
 Java.perform(function() {
     var MainActivity = Java.use("jakhar.aseem.diva.MainActivity");
