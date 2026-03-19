@@ -113,9 +113,94 @@ Start Dynamic Analyzer
 - etc. (13 challenges)
 
 ---
-##  4. Observation dans MobSF
+#  Tests Dynamiques Réalisés
 
-###  Logcat Stream (Runtime Logs)
-- Visualisation des logs Android en temps réel
-- Filtrage avec :
+## 1️ Injection Frida (Spawn & Inject)
+
+### Procédure
+Dans MobSF :
+
+1. Ouvrir **Dynamic Analyzer**
+2. Cliquer sur : Spawn & Inject
+3.  Charger le script :
+
+### Objectif
+Surveiller l’utilisation de **SharedPreferences** afin de détecter si l’application stocke des données sensibles.
+
+---
+
+### Test effectué
+
+Dans l’application DIVA :
+
+- Saisie :
+ ```
+username : test
+password : 1234
+```
+
+Après interaction avec l’application, MobSF a généré les logs suivants :
+<p align="center"> <img src="images/19.png" width="800"> </p>
+
+Risque identifié :
+Stockage potentiel de données sensibles dans le stockage local.
+
+---
+
+# 2️ Activity Exploration
+
+### Objectif
+Explorer les activités internes de l’application et détecter des écrans cachés ou non protégés.
+
+### Procédure
+
+Dans MobSF :
+
+1. Aller dans :
+```
+Activity Tester
+```
+
+2. Lancer plusieurs activités de l’application.
+<p align="center"> <img src="images/20.png" width="800"> </p>
+
+### Résultat
+-  Découverte de plusieurs activités internes  
+-  Accès possible à certains écrans sans authentification  
+- Identification de surfaces d’attaque potentielles
+
+---
+
+# 3️ TLS / SSL Security Test
+<p align="center"> <img src="images/22.png" width="800"> </p>
+### Objectif
+Tester la sécurité des communications réseau de l’application.
+
+### Procédure
+```
+TLS/SSL Security Tester
+```
+MobSF effectue automatiquement des tests de sécurité sur les connexions réseau.
+
+---
+
+### Vérifications effectuées
+
+- Validation du certificat SSL
+- Analyse du pinning certificat
+- Détection de vulnérabilités TLS
+
+---
+
+
+# 📊 Résumé des Tests Dynamiques
+
+| Test | Objectif | Résultat |
+|------|----------|----------|
+| Frida Injection | Surveiller stockage local | Détection de `SharedPreferences.putString()` |
+| Activity Tester | Explorer les activités | Découverte d’écrans internes |
+| TLS/SSL Tester | Vérifier la sécurité réseau | Analyse de la configuration SSL |
+
+---
+
 
